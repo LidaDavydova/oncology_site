@@ -3,6 +3,7 @@ import os
 from tensorflow import keras
 import tensorflow as tf
 import numpy as np
+import pathlib
 
 # Create your views here.
 
@@ -14,7 +15,7 @@ def model_output(img):
     input_arr = np.array([input_arr])
 
     # upload model
-    model = keras.models.load_model('model/model_keras_1_0.keras') # измени на свой путь к модели .h5
+    model = keras.models.load_model(f'{pathlib.Path(__file__).parent}/model/model_keras_1_0.keras') # измени на свой путь к модели .h5
     pred = model.predict(input_arr)
 
     # вывод класса изображения
