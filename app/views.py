@@ -4,7 +4,6 @@ import PIL
 from tensorflow import keras
 import tensorflow as tf
 import cv2
-import matplotlib.pyplot as plt
 import torchvision.transforms as transforms
 import numpy as np
 
