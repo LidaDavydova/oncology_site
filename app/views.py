@@ -1,10 +1,7 @@
 from django.shortcuts import render
 import os
-import PIL
 from tensorflow import keras
 import tensorflow as tf
-import cv2
-import torchvision.transforms as transforms
 import numpy as np
 
 # Create your views here.
