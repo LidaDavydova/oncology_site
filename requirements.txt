@@ -2,6 +2,8 @@ tensorflow==2.15.0
 tf_keras==2.15.0
 pillow
 django
-django_jinjan
+django_jinja
 djangorestframework
-jinjan2
+jinja2
+scikit-learn
+pandas

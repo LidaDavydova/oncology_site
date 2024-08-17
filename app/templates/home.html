@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>My Webpage</title>
+    <title>Melanoma/Nevus classificaiton</title>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
+
 </head>
 <style>
     html{
@@ -10,70 +12,33 @@
 
 body{
   
-  background-color:#2590EB;
+  background-color:#258feb67;
   height:100%;
 }
 
-.wrapper{
-  
-  width:100%;
-  height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  
 
-  .file-upload{
+.bg-gray-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 250 251/var(--tw-bg-opacity));
+  margin-bottom: 20px;
+}
 
-    height:200px;
-    width:200px;
-    border-radius: 100px;
-    position:relative;
-    
-    display:flex;
-    justify-content:center;
-    align-items: center;  
-
-    border:4px solid #FFFFFF;
-    overflow:hidden;
-    background-image: linear-gradient(to bottom, #2590EB 50%, #FFFFFF 50%);
-    background-size: 100% 200%;
-    transition: all 1s;
-    color: #FFFFFF;
-    font-size:100px;
-
-    input[type='file']{
-
-      height:200px;
-      width:200px;
-      position:absolute;
-      top:0;
-      left:0;
-      opacity:0;
-      cursor:pointer;
-
-    }
-
-    &:hover{
-
-      background-position: 0 -100%;
-
-      color:#2590EB;
-
-    }
-
-
-  }
+h1.upload {
+  position: relative;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 80px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: 36px;
 }
 
 .sub {
-    margin-top: 30px;
-    position: relative;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
-
 
 
 </style>
@@ -84,23 +49,68 @@ body{
     {% endfor %}
     </ul>
 
-    {{ error }}
+    <h2 style="margin-left: 20%;">{{ error }}</h2>
 
-    <h1>Загрузить фото</h1>
+    <h1 class="upload">Загрузите фото для распознавания</h1>
 
-    <form method="post" enctype="multipart/form-data">
-        <div class="wrapper">
-            <div class="file-upload">
-                {% csrf_token %}
-                <input type="file" name="image" />
-                <i class="fa fa-arrow-up"></i>
-            </div>
-        </div>
-        <input class="sub" type="submit" value="Распознать" />
+    <form method="post" enctype="multipart/form-data" class="max-w-sm mx-auto" name="send_img">
+      {% csrf_token %}
+    <div class="flex items-center justify-center w-full">
+      <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+          <div class="flex flex-col items-center justify-center pt-5 pb-6">
+              <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+              </svg>
+              <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+              <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG, JPEG</p>
+          </div>
+          <input id="dropzone-file" type="file" class="hidden" name="image" value="image" />
+      </label>
+    </div> 
 
+    <label for="number-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Возвраст:</label>
+      <input type="number" name="age" id="number-input" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="50" required />
+      
+      <label for="sex" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Пол:</label>
+      <select id="sex" name="sex" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <option value="male" selected>Мужской</option>
+        <option value="female">Женский</option>
+      </select>
+
+      <label for="area" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Зона на теле:</label>
+      <select id="area" name="area" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <option value="unknown" selected>неизвестно</option>
+        <option value="lower extremity">нижняя конечность</option>
+        <option value="upper extremity">верхняя конечность</option>
+        <option value="torso">торс</option>
+        <option value="head/neck">голова/шея</option>
+        <option value="palms/soles">ладони/подошвы</option>
+        <option value="oral/genital">рот</option>
+        <option value="scalp">зона роста волос</option>
+        <option value="ear">ухо</option>
+        <option value="face">лицо</option>
+        <option value="back">спина</option>
+        <option value="trunk">туловище</option>
+        <option value="chest">грудь</option>
+        <option value="abdomen">живот</option>
+        <option value="genital">гениталии</option>
+        <option value="neck">шея</option>
+        <option value="hand">рука</option>
+        <option value="foot">стопа</option>
+      </select>
+    <div style="text-align:center;margin-top: 15px;">
+      <input name="send_img" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit" value="Распознать" />
+    </div>
     </form>
 
-    <h2>{{ prediction }}</h2>
+    <h2 style="margin-left: 20%;">{{ prediction }}</h2>
+    <h2 style="margin-left: 20%;">{{ text1 }}</h2>
+    <h2 style="margin-left: 20%;">{{ text2 }}</h2>
+    <h2 style="margin-left: 20%;">{{ text3 }}</h2>
+
+
+
 
 </body>
+<script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
 </html>
